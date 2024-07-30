@@ -1,10 +1,12 @@
 package com.designartisan.applocker;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -14,8 +16,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.designartisan.applocker.Utils.AccessibilityServiceUtils;
+import com.designartisan.applocker.Utils.PermissionUtils;
 import com.designartisan.applocker.fragment.LockedFragment;
 import com.designartisan.applocker.fragment.UnlockedFragment;
+import com.designartisan.applocker.service.AppLockService;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -37,6 +42,11 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+
+        // Check Accessibility Permission
+        accessibilityPermission();
+
 
         tabLayout = findViewById(R.id.tabLayoutId);
         viewPager = findViewById(R.id.viewPagerId);
@@ -83,4 +93,29 @@ public class MainActivity extends AppCompatActivity {
             return stringArrayList.get(position);
         }
     }
+
+
+    public void accessibilityPermission(){
+
+        if (!AccessibilityServiceUtils.isAccessibilityServiceEnabled(this, AppLockService.class)) {
+            // Show a dialog to the user explaining why the permission is needed
+            new AlertDialog.Builder(this)
+                    .setTitle("Accessibility Permission Required")
+                    .setMessage("This app needs accessibility permission to lock apps.")
+                    .setPositiveButton("Grant Permission", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            AccessibilityServiceUtils.requestAccessibilityPermission(MainActivity.this);
+                        }
+                    })
+                    .setCancelable(false)
+                    .show();
+        }
+
+        if (!PermissionUtils.checkDrawOverlayPermission(this)) {
+            PermissionUtils.requestDrawOverlayPermission(this);
+        }
+
+    }
+
 }

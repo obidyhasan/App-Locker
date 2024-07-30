@@ -16,6 +16,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.designartisan.applocker.Utils.PermissionUtils;
+
 public class UsagePermissionActivity extends AppCompatActivity {
 
     ImageView appImg;
@@ -32,8 +34,14 @@ public class UsagePermissionActivity extends AppCompatActivity {
         });
 
         if (isAccessGranted()){
-            startActivity(new Intent(getApplicationContext(),MainActivity.class));
-            finish();
+            if (PermissionUtils.checkDrawOverlayPermission(getApplicationContext())){
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                finish();
+            }
+            else{
+                startActivity(new Intent(getApplicationContext(),OverlayPermissionActivity.class));
+                finish();
+            }
         }
 
         appImg = findViewById(R.id.appIconId);
@@ -46,8 +54,16 @@ public class UsagePermissionActivity extends AppCompatActivity {
         super.onResume();
 
         if (isAccessGranted()){
-            startActivity(new Intent(getApplicationContext(),MainActivity.class));
-            finish();
+
+            if (PermissionUtils.checkDrawOverlayPermission(getApplicationContext())){
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                finish();
+            }
+            else{
+                startActivity(new Intent(getApplicationContext(),OverlayPermissionActivity.class));
+                finish();
+            }
+
         }
     }
 

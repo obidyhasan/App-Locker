@@ -1,5 +1,7 @@
 package com.designartisan.applocker.fragment;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,12 +15,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.designartisan.applocker.Helper.SharedPreferencesHelper;
 import com.designartisan.applocker.Model.ItemModel;
 import com.designartisan.applocker.R;
 import com.designartisan.applocker.adapter.ItemAdapter;
@@ -32,6 +36,8 @@ public class UnlockedFragment extends Fragment {
     List<ItemModel> itemModels = new ArrayList<>();
     ItemAdapter adapter;
 
+    List<String> retrievedList = new ArrayList<>();
+    SharedPreferencesHelper helper;
 
 
     @Override
@@ -47,13 +53,23 @@ public class UnlockedFragment extends Fragment {
         // Progress Bar
         getInstalledApp(view.getContext());
 
+
+        try {
+            retrievedList = SharedPreferencesHelper.getArrayList(view.getContext());
+            Toast.makeText(getContext(), ""+retrievedList.size(), Toast.LENGTH_SHORT).show();
+        }
+        catch (Exception e){
+            Log.d(TAG, "onCreateView: "+e.toString());
+        }
+
         return view;
     }
 
 
 
-
     public void getInstalledApp(Context context){
+
+
 
         List<ApplicationInfo> packages = context.getPackageManager().getInstalledApplications(PackageManager.GET_META_DATA);
 
@@ -64,7 +80,23 @@ public class UnlockedFragment extends Fragment {
             Drawable icon = packageInfo.loadIcon(context.getPackageManager());
 
             if ((packageInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0 || packageInfo.packageName.equals("com.android.settings")) {
-                itemModels.add(new ItemModel(name, packageName, 0, icon));
+
+                boolean check = true;
+
+               retrievedList = SharedPreferencesHelper.getArrayList(context);
+
+               for (String item : retrievedList){
+                   if (packageName.equals(item)){
+                       itemModels.add(new ItemModel(name, packageName, 1, icon));
+                       check = false;
+                       break;
+                   }
+               }
+
+               if (check){
+                   itemModels.add(new ItemModel(name, packageName, 0, icon));
+               }
+
             }
 
         }

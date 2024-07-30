@@ -14,6 +14,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.designartisan.applocker.Utils.PermissionUtils;
+
 public class SplashScreenActivity extends AppCompatActivity {
 
     @Override
@@ -32,8 +34,16 @@ public class SplashScreenActivity extends AppCompatActivity {
             public void run() {
 
                 if (isAccessGranted()){
-                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                    finish();
+
+                    if (!PermissionUtils.checkDrawOverlayPermission(getApplicationContext())){
+                        startActivity(new Intent(getApplicationContext(),OverlayPermissionActivity.class));
+                        finish();
+                    }
+                    else{
+                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        finish();
+                    }
+
                 }
                 else {
                     startActivity(new Intent(getApplicationContext(),UsagePermissionActivity.class));

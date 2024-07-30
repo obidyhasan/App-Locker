@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".UsagePermissionActivity">
+    tools:context=".OverlayPermissionActivity">
 
     <ScrollView
         android:scrollbars="none"
@@ -22,7 +22,7 @@
 
 
             <ImageView
-                android:id="@+id/appIconId"
+                android:id="@+id/appIconOverlay"
                 android:layout_marginTop="50dp"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/app_logo"
@@ -45,10 +45,12 @@
                 android:layout_height="60dp">
 
                 <TextView
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:textSize="18sp"
                     android:layout_centerVertical="true"
                     android:textStyle="bold"
-                    android:text="Permit usage access"
+                    android:text="Allow display over other apps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -64,14 +66,14 @@
                 android:layout_marginTop="5dp"
                 android:lineHeight="20dp"
                 android:textSize="14sp"
-                android:text="Usage access allows an app to track what other apps that you're using and how often, as well as your operator, language settings and other details."
+                android:text="Allow this app to desplay on top of other apps you're using. This app will be able to see where you tap or change what's displayed on the screen."
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:targetApi="p" />
 
 
             <Button
-                android:onClick="permitPermissionBtn"
+                android:onClick="overlayPermissionBtn"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="30dp"
@@ -83,6 +85,5 @@
         </LinearLayout>
 
     </ScrollView>
-
 
 </LinearLayout>

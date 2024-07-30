@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.designartisan.applocker.Helper.SharedPreferencesHelper;
 import com.designartisan.applocker.Model.ItemModel;
 import com.designartisan.applocker.R;
 
@@ -46,6 +47,34 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         else {
             holder.statusImage.setImageResource(R.drawable.lock);
         }
+
+
+        holder.itemView.setOnClickListener(v -> {
+
+
+            if (itemModel.getStatus() == 0){ // app is unlocked
+
+                itemModel.setStatus(1);
+                holder.statusImage.setImageResource(R.drawable.lock);
+
+                SharedPreferencesHelper.saveArrayList(holder.packageName.getContext(), itemModel.getPackageName());
+
+
+            }
+            else{ // app is locked
+
+                itemModel.setStatus(0);
+                holder.statusImage.setImageResource(R.drawable.unlock);
+
+                SharedPreferencesHelper.deleteArrayList(holder.packageName.getContext(),itemModel.getPackageName());
+
+
+            }
+
+            notifyDataSetChanged();
+
+        });
+
     }
 
     @Override
