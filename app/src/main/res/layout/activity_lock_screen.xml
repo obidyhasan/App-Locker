@@ -1,30 +1,315 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LockScreenActivity"
-    android:background="@color/white">
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:gravity="bottom">
 
-    <TextView
-        android:id="@+id/textviewId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/unlockedButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_marginBottom="50dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/unlockedButton"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:text="Unlock"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/textviewId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:layout_margin="20dp"
+            android:id="@+id/editText"
+            android:letterSpacing=".2"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:hint="enter passowrd"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/edit_text_background"
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:orientation="vertical"
+        android:gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:weightSum="3"
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+            <RelativeLayout
+                android:id="@+id/oneNumber"
+                android:layout_margin="10dp"
+                android:background="@drawable/tab_indicator"
+                android:backgroundTint="#DCC8FF"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:textColor="@color/text_color"
+                    android:textStyle="bold"
+                    android:textSize="28sp"
+                    android:text="1"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/twoNumber"
+                android:layout_margin="10dp"
+                android:background="@drawable/tab_indicator"
+                android:backgroundTint="#DCC8FF"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:textColor="@color/text_color"
+                    android:textStyle="bold"
+                    android:textSize="28sp"
+                    android:text="2"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/threeNumber"
+                android:layout_margin="10dp"
+                android:background="@drawable/tab_indicator"
+                android:backgroundTint="#DCC8FF"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:textColor="@color/text_color"
+                    android:textStyle="bold"
+                    android:textSize="28sp"
+                    android:text="3"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:weightSum="3"
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+            <RelativeLayout
+                android:id="@+id/fourNumber"
+                android:layout_margin="10dp"
+                android:background="@drawable/tab_indicator"
+                android:backgroundTint="#DCC8FF"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:textColor="@color/text_color"
+                    android:textStyle="bold"
+                    android:textSize="28sp"
+                    android:text="4"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/fiveNumber"
+                android:layout_margin="10dp"
+                android:background="@drawable/tab_indicator"
+                android:backgroundTint="#DCC8FF"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:textColor="@color/text_color"
+                    android:textStyle="bold"
+                    android:textSize="28sp"
+                    android:text="5"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/sixNumber"
+                android:layout_margin="10dp"
+                android:background="@drawable/tab_indicator"
+                android:backgroundTint="#DCC8FF"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:textColor="@color/text_color"
+                    android:textStyle="bold"
+                    android:textSize="28sp"
+                    android:text="6"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:weightSum="3"
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+            <RelativeLayout
+                android:id="@+id/sevenNumber"
+                android:layout_margin="10dp"
+                android:background="@drawable/tab_indicator"
+                android:backgroundTint="#DCC8FF"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:textColor="@color/text_color"
+                    android:textStyle="bold"
+                    android:textSize="28sp"
+                    android:text="7"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/eightNumber"
+                android:layout_margin="10dp"
+                android:background="@drawable/tab_indicator"
+                android:backgroundTint="#DCC8FF"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:textColor="@color/text_color"
+                    android:textStyle="bold"
+                    android:textSize="28sp"
+                    android:text="8"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/nineNumber"
+                android:layout_margin="10dp"
+                android:background="@drawable/tab_indicator"
+                android:backgroundTint="#DCC8FF"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:textColor="@color/text_color"
+                    android:textStyle="bold"
+                    android:textSize="28sp"
+                    android:text="9"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:weightSum="3"
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+            <RelativeLayout
+                android:id="@+id/deleteBtn"
+                android:background="@drawable/tab_indicator"
+                android:backgroundTint="#DCC8FF"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/delete"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/zeroNumber"
+                android:layout_margin="10dp"
+
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:textColor="@color/text_color"
+                    android:textStyle="bold"
+                    android:textSize="28sp"
+                    android:text="0"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/unlockedButton"
+                android:layout_margin="10dp"
+                android:background="@drawable/tab_indicator"
+                android:backgroundTint="#DCC8FF"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/check"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

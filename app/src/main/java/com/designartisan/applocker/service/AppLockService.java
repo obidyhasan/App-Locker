@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.designartisan.applocker.Helper.SharedPreferencesHelper;
@@ -54,6 +56,7 @@ public class AppLockService extends AccessibilityService {
     private boolean shouldLockApp(String packageName) {
         // Example: Lock only Facebook app
         List<String> retrievedList = SharedPreferencesHelper.getArrayList(this);
+
         for (String item : retrievedList){
 
             if(packageName.equals(item)){
@@ -88,12 +91,85 @@ public class AppLockService extends AccessibilityService {
             windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
             windowManager.addView(lockScreenView, layoutParams);
 
+
+            EditText editText = lockScreenView.findViewById(R.id.editText);
+            RelativeLayout one, two, three, four, five, six, seven, eight, nine, zero, delete;
+
+            one = lockScreenView.findViewById(R.id.oneNumber);
+            two = lockScreenView.findViewById(R.id.twoNumber);
+            three = lockScreenView.findViewById(R.id.threeNumber);
+            four = lockScreenView.findViewById(R.id.fourNumber);
+            five = lockScreenView.findViewById(R.id.fiveNumber);
+            six = lockScreenView.findViewById(R.id.sixNumber);
+            seven = lockScreenView.findViewById(R.id.sevenNumber);
+            eight = lockScreenView.findViewById(R.id.eightNumber);
+            nine = lockScreenView.findViewById(R.id.nineNumber);
+            zero = lockScreenView.findViewById(R.id.zeroNumber);
+            delete = lockScreenView.findViewById(R.id.deleteBtn);
+
+            one.setOnClickListener(v -> {
+
+                editText.setText(editText.getText().toString()+"1");
+            });
+
+            two.setOnClickListener(v -> {
+                editText.setText(editText.getText().toString()+"2");
+            });
+
+            three.setOnClickListener(v -> {
+                editText.setText(editText.getText().toString()+"3");
+            });
+
+            four.setOnClickListener(v -> {
+                editText.setText(editText.getText().toString()+"4");
+            });
+
+            five.setOnClickListener(v -> {
+                editText.setText(editText.getText().toString()+"5");
+            });
+
+            six.setOnClickListener(v -> {
+                editText.setText(editText.getText().toString()+"6");
+            });
+
+            seven.setOnClickListener(v -> {
+                editText.setText(editText.getText().toString()+"7");
+            });
+
+            eight.setOnClickListener(v -> {
+                editText.setText(editText.getText().toString()+"8");
+            });
+
+            nine.setOnClickListener(v -> {
+                editText.setText(editText.getText().toString()+"9");
+            });
+
+            zero.setOnClickListener(v -> {
+                editText.setText(editText.getText().toString()+"0");
+            });
+
+            delete.setOnClickListener(v -> {
+                editText.setText(null);
+            });
+
             lockScreenView.findViewById(R.id.unlockedButton).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    removeLockScreen();
+
+                    if (editText.getText().toString().equals("4310")){
+                        removeLockScreen();
+                    }
+                    else{
+                        editText.setError("নাটক কম করো পিও");
+                        editText.setText(null);
+                    }
+
+//                    removeLockScreen();
+
                 }
             });
+
+
         }
     }
 

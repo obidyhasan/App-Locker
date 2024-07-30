@@ -26,15 +26,6 @@ public class LockScreenActivity extends AppCompatActivity {
             return insets;
         });
 
-        textView = findViewById(R.id.textviewId);
-
-        String packageName = getIntent().getStringExtra("package_name");
-        textView.setText(packageName);
-
-        button = findViewById(R.id.unlockedButton);
-        button.setOnClickListener(v -> {
-            finishAffinity();
-        });
 
     }
 
