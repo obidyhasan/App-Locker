@@ -13,8 +13,11 @@ import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.Toast;
 
+import com.designartisan.applocker.Helper.SharedPreferencesHelper;
 import com.designartisan.applocker.LockScreenActivity;
 import com.designartisan.applocker.R;
+
+import java.util.List;
 
 public class AppLockService extends AccessibilityService {
 
@@ -50,7 +53,17 @@ public class AppLockService extends AccessibilityService {
 
     private boolean shouldLockApp(String packageName) {
         // Example: Lock only Facebook app
-        return packageName.equals("com.facebook.katana");
+        List<String> retrievedList = SharedPreferencesHelper.getArrayList(this);
+        for (String item : retrievedList){
+
+            if(packageName.equals(item)){
+                return true;
+            }
+
+        }
+
+        return false;
+
     }
 
     private void showLockScreen(String packageName) {

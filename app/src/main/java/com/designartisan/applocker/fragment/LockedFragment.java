@@ -44,11 +44,15 @@ public class LockedFragment extends Fragment {
 
         getLockedApp(view.getContext());
 
-        Toast.makeText(getContext(), "Locked Fragment - on create", Toast.LENGTH_SHORT).show();
-
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        itemModels.clear();
+        getLockedApp(getContext());
+    }
 
 
     public void getLockedApp(Context context){

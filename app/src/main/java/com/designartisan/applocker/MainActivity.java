@@ -57,10 +57,11 @@ public class MainActivity extends AppCompatActivity {
         adapter.AddFragment(new LockedFragment(), "Locked");
 
         viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(1);
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    private class MainAdapter extends FragmentPagerAdapter {
+    public class MainAdapter extends FragmentPagerAdapter {
 
         ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
         ArrayList<String> stringArrayList = new ArrayList<>();
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public MainAdapter(@NonNull FragmentManager fm) {
-            super(fm);
+            super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         }
 
         @NonNull

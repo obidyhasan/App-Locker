@@ -7,11 +7,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.designartisan.applocker.Helper.SharedPreferencesHelper;
+import com.designartisan.applocker.MainActivity;
 import com.designartisan.applocker.Model.ItemModel;
 import com.designartisan.applocker.R;
+import com.designartisan.applocker.fragment.LockedFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +62,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
                 SharedPreferencesHelper.saveArrayList(holder.packageName.getContext(), itemModel.getPackageName());
 
-
             }
             else{ // app is locked
 
@@ -67,7 +69,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
                 holder.statusImage.setImageResource(R.drawable.unlock);
 
                 SharedPreferencesHelper.deleteArrayList(holder.packageName.getContext(),itemModel.getPackageName());
-
 
             }
 

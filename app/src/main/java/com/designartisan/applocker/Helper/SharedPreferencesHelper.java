@@ -32,10 +32,6 @@ public class SharedPreferencesHelper {
         editor.putString(KEY_ARRAY_LIST, json);
         editor.apply();
 
-        for (String item : list){
-            Toast.makeText(context, ""+item, Toast.LENGTH_SHORT).show();
-        }
-
     }
 
     public static void deleteArrayList(Context context, String packageName) {
@@ -48,12 +44,6 @@ public class SharedPreferencesHelper {
         String json = gson.toJson(list);
         editor.putString(KEY_ARRAY_LIST, json);
         editor.apply();
-
-        for (String item : list){
-            Toast.makeText(context, ""+item, Toast.LENGTH_SHORT).show();
-        }
-
-
 
     }
 

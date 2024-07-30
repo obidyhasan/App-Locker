@@ -53,15 +53,6 @@ public class UnlockedFragment extends Fragment {
         // Progress Bar
         getInstalledApp(view.getContext());
 
-
-        try {
-            retrievedList = SharedPreferencesHelper.getArrayList(view.getContext());
-            Toast.makeText(getContext(), ""+retrievedList.size(), Toast.LENGTH_SHORT).show();
-        }
-        catch (Exception e){
-            Log.d(TAG, "onCreateView: "+e.toString());
-        }
-
         return view;
     }
 
