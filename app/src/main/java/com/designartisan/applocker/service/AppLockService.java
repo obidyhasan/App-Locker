@@ -3,20 +3,21 @@ package com.designartisan.applocker.service;
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.designartisan.applocker.Helper.SharedPreferencesHelper;
-import com.designartisan.applocker.LockScreenActivity;
 import com.designartisan.applocker.R;
 
 import java.util.List;
@@ -24,7 +25,6 @@ import java.util.List;
 public class AppLockService extends AccessibilityService {
 
     private static final String TAG = "AppLockService";
-
     private WindowManager windowManager;
     private View lockScreenView;
 
@@ -54,19 +54,8 @@ public class AppLockService extends AccessibilityService {
     }
 
     private boolean shouldLockApp(String packageName) {
-        // Example: Lock only Facebook app
         List<String> retrievedList = SharedPreferencesHelper.getArrayList(this);
-
-        for (String item : retrievedList){
-
-            if(packageName.equals(item)){
-                return true;
-            }
-
-        }
-
-        return false;
-
+        return retrievedList.contains(packageName);
     }
 
     private void showLockScreen(String packageName) {
@@ -85,93 +74,82 @@ public class AppLockService extends AccessibilityService {
                     WindowManager.LayoutParams.MATCH_PARENT,
                     WindowManager.LayoutParams.MATCH_PARENT,
                     layoutParamsType,
-                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
+                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
                     PixelFormat.TRANSLUCENT);
 
             windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
             windowManager.addView(lockScreenView, layoutParams);
 
-
-            EditText editText = lockScreenView.findViewById(R.id.editText);
-            RelativeLayout one, two, three, four, five, six, seven, eight, nine, zero, delete;
-
-            one = lockScreenView.findViewById(R.id.oneNumber);
-            two = lockScreenView.findViewById(R.id.twoNumber);
-            three = lockScreenView.findViewById(R.id.threeNumber);
-            four = lockScreenView.findViewById(R.id.fourNumber);
-            five = lockScreenView.findViewById(R.id.fiveNumber);
-            six = lockScreenView.findViewById(R.id.sixNumber);
-            seven = lockScreenView.findViewById(R.id.sevenNumber);
-            eight = lockScreenView.findViewById(R.id.eightNumber);
-            nine = lockScreenView.findViewById(R.id.nineNumber);
-            zero = lockScreenView.findViewById(R.id.zeroNumber);
-            delete = lockScreenView.findViewById(R.id.deleteBtn);
-
-            one.setOnClickListener(v -> {
-
-                editText.setText(editText.getText().toString()+"1");
-            });
-
-            two.setOnClickListener(v -> {
-                editText.setText(editText.getText().toString()+"2");
-            });
-
-            three.setOnClickListener(v -> {
-                editText.setText(editText.getText().toString()+"3");
-            });
-
-            four.setOnClickListener(v -> {
-                editText.setText(editText.getText().toString()+"4");
-            });
-
-            five.setOnClickListener(v -> {
-                editText.setText(editText.getText().toString()+"5");
-            });
-
-            six.setOnClickListener(v -> {
-                editText.setText(editText.getText().toString()+"6");
-            });
-
-            seven.setOnClickListener(v -> {
-                editText.setText(editText.getText().toString()+"7");
-            });
-
-            eight.setOnClickListener(v -> {
-                editText.setText(editText.getText().toString()+"8");
-            });
-
-            nine.setOnClickListener(v -> {
-                editText.setText(editText.getText().toString()+"9");
-            });
-
-            zero.setOnClickListener(v -> {
-                editText.setText(editText.getText().toString()+"0");
-            });
-
-            delete.setOnClickListener(v -> {
-                editText.setText(null);
-            });
-
-            lockScreenView.findViewById(R.id.unlockedButton).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    if (editText.getText().toString().equals("4310")){
-                        removeLockScreen();
-                    }
-                    else{
-                        editText.setError("নাটক কম করো পিও");
-                        editText.setText(null);
-                    }
-
-//                    removeLockScreen();
-
-                }
-            });
-
+            setupLockScreenView(packageName);
 
         }
     }
+
+
+    private void setupLockScreenView(String packageName) {
+        EditText editText = lockScreenView.findViewById(R.id.editText);
+        RelativeLayout one = lockScreenView.findViewById(R.id.oneNumber);
+        RelativeLayout two = lockScreenView.findViewById(R.id.twoNumber);
+        RelativeLayout three = lockScreenView.findViewById(R.id.threeNumber);
+        RelativeLayout four = lockScreenView.findViewById(R.id.fourNumber);
+        RelativeLayout five = lockScreenView.findViewById(R.id.fiveNumber);
+        RelativeLayout six = lockScreenView.findViewById(R.id.sixNumber);
+        RelativeLayout seven = lockScreenView.findViewById(R.id.sevenNumber);
+        RelativeLayout eight = lockScreenView.findViewById(R.id.eightNumber);
+        RelativeLayout nine = lockScreenView.findViewById(R.id.nineNumber);
+        RelativeLayout zero = lockScreenView.findViewById(R.id.zeroNumber);
+        RelativeLayout delete = lockScreenView.findViewById(R.id.deleteBtn);
+
+
+        one.setOnClickListener(v -> editText.append("1"));
+        two.setOnClickListener(v -> editText.append("2"));
+        three.setOnClickListener(v -> editText.append("3"));
+        four.setOnClickListener(v -> editText.append("4"));
+        five.setOnClickListener(v -> editText.append("5"));
+        six.setOnClickListener(v -> editText.append("6"));
+        seven.setOnClickListener(v -> editText.append("7"));
+        eight.setOnClickListener(v -> editText.append("8"));
+        nine.setOnClickListener(v -> editText.append("9"));
+        zero.setOnClickListener(v -> editText.append("0"));
+        delete.setOnClickListener(v -> {
+            editText.setText(null);
+        });
+
+        lockScreenView.findViewById(R.id.unlockedButton).setOnClickListener(v -> {
+            if (editText.getText().toString().equals("4310")) {
+                removeLockScreen();
+            } else {
+                editText.setError("Invalid code");
+                editText.setText(null);
+            }
+
+        });
+
+        lockScreenView.findViewById(R.id.closeBtn).setOnClickListener(v -> {
+            handleBackPress();
+        });
+
+        lockScreenView.setOnTouchListener((v, event) -> true);
+
+        // Handle the back button press by simulating a home action
+        lockScreenView.setFocusableInTouchMode(true);
+        lockScreenView.requestFocus();
+        lockScreenView.setOnKeyListener((v, keyCode, event) -> {
+        if (keyCode == android.view.KeyEvent.KEYCODE_BACK && event.getAction() == android.view.KeyEvent.ACTION_UP) {
+        handleBackPress();
+        return true;
+        }
+        return false;
+        });
+
+    }
+
+
+    private void handleBackPress() {
+        performGlobalAction(GLOBAL_ACTION_HOME);
+        removeLockScreen();
+    }
+
 
     private void removeLockScreen() {
         if (lockScreenView != null && windowManager != null) {
@@ -179,14 +157,6 @@ public class AppLockService extends AccessibilityService {
             lockScreenView = null;
         }
     }
-
-//    private void showLockScreen(String packageName) {
-//        // Launch the lock screen activity
-//        Intent intent = new Intent(this, LockScreenActivity.class);
-//        intent.putExtra("package_name", packageName);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        startActivity(intent);
-//    }
 
 
 }
